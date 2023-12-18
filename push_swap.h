@@ -12,6 +12,7 @@ typedef struct stacks
 	int	*a;
 	int *b;
     int height;
+	int med;
 }	t_stacks;
 
 

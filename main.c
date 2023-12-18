@@ -9,7 +9,7 @@ static void	num_ok(char *str)
 	{
 		if (ft_isdigit(str[i]) != 1)
 		{
-			ft_printf("Error 4\n");
+			ft_printf("Error\n");
 			exit(2);
 		}
 		i++;
@@ -18,12 +18,13 @@ static void	num_ok(char *str)
 
 static void parse_prompt(char **s)
 {
-	int i;
-	
+	int	i;
+	int j;
+
 	i = 1;
 	if(!s[i])
 	{
-		ft_printf("Error 1\n");
+		ft_printf("Error\n");
 		exit(1);
 	}
 	while(s[i])
@@ -32,10 +33,26 @@ static void parse_prompt(char **s)
 		num_ok(s[i]);
 		i++;
 	}
+	i = 1;
+	while(s[i])
+	{
+		j = i + 1;
+		while(s[j])
+		{
+			if(ft_strncmp(s[i], s[j], ft_max(ft_strlen(s[i]),ft_strlen(s[j]))) == 0)
+			{
+				ft_printf("Error");
+				exit(1);
+			}
+			j++;
+		}
+		i++;	
+	}
 }
+
 static void mount_stacks(char **str, int height, t_stacks *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	s->a = malloc(height * sizeof(int));
@@ -47,18 +64,46 @@ static void mount_stacks(char **str, int height, t_stacks *s)
 	}
 }
 
+
+int median_of_three(int a, int b, int c)
+{
+	if (a > b)
+	{	
+        if(a > c)
+		{
+			if(b > c)
+                return(b);
+            return(c);
+		}
+        return(a);
+    }
+    if(a < c)
+    {    
+        if(b < c) 
+            return(b);
+        return(c);
+    }
+    return(a);
+}
+
+static void index(t_stacks *s)
+{
+	int *c;
+	int i;
+	int p;
+
+	c = malloc(sizeof(int) * s->height);
+	c = ft_memcpy(c, s->a, s->height * sizeof(int));
+	p = median_of_three(c[0], c[s->height / 2], c[s->height]);
+	
+}
+
 int main(int argc, char **argv)
 {
 	t_stacks	s;
-	int			i;
 	
 	parse_prompt(argv);
 	mount_stacks(argv, argc - 1, &s);
-	i = 0;
-	while (s.a[i])
-	{
-		ft_printf("%i\n", s.a[i]);
-		i++;
-	}
+	index(&s);
 	return (0);
 }

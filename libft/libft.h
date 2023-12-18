@@ -81,6 +81,7 @@ char	*ft_ftoa(double f);
 float	ft_truncf(float n);
 float	ft_fabs(float n);
 double	ft_pow(double base, double exp);
+int		ft_max(int a, int b);
 t_ratio	ft_ratio(double n);
 
 #endif
