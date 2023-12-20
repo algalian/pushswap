@@ -12,8 +12,10 @@ typedef struct stacks
 	int	*a;
 	int *b;
     int height;
-	int med;
+	int *index;
 }	t_stacks;
+
+int median_of_three(int a, int b, int c);
 
 
 #endif
