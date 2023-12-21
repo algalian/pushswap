@@ -3,7 +3,7 @@ NAME		= push_swap
 
 SRCS		= main.c \
 			utils.c \
-
+			moves.c \
 
 OBJS		= $(SRCS:%.c=%.o)
 

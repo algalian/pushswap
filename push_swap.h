@@ -11,11 +11,17 @@ typedef struct stacks
 {
 	int	*a;
 	int *b;
-    int height;
+    int height_a;
+	int height_b;
 	int *raw;
-	char **m;
+	int moves;
 }	t_stacks;
 
+void push(t_stacks *s, char m);
+void swap(t_stacks *s, char *m);
+void rotate(t_stacks *s, char *m);
+void reverse_rotate(t_stacks *s, char *m);
+void ft_switch(int *a, int *b);
 
 
 #endif

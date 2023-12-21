@@ -55,9 +55,9 @@ static void mount_stacks(char **str, t_stacks *s)
 	int	i;
 
 	i = 0;
-	s->raw = malloc(s->height * sizeof(int));
-	s->b = ft_calloc(s->height, sizeof(int));
-	while (i < s->height)
+	s->raw = malloc(s->height_a * sizeof(int));
+	s->b = ft_calloc(s->height_a, sizeof(int));
+	while (i < s->height_a)
 	{
 		s->raw[i] = ft_atoi(str[i + 1]);
 		i++;
@@ -90,7 +90,7 @@ int *ft_index(int *stack_a, int stack_size)
 	return (stack_index);
 }
 
-/*tatic void first_sort(t_stacks *s)
+/*static void first_sort(t_stacks *s)
 {
 	int i;
 	
@@ -105,14 +105,45 @@ int *ft_index(int *stack_a, int stack_size)
 	
 }*/
 
+/*void test_moves(t_stacks *s)
+{
+	swap(&s, "a");
+	swap(&s, "b");
+	swap(&s, "ab");
+	push(&s, "a");
+	push(&s, "b");
+	rotate(&s, "a");
+	rotate(&s, "b");
+	rotate(&s, "ab");
+	reverse_rotate(&s, "a");
+	reverse_rotate(&s, "b");
+	reverse_rotate(&s, "ab");	
+}*/
+
 int main(int argc, char **argv)
 {
 	t_stacks	s;
+	int i;
+	int j;
 
-	s.height = argc - 1;
+	s.height_a = argc - 1;
+	s.height_b = 0; 
 	parse_args(argv);
 	mount_stacks(argv, &s);
-	s.a = ft_index(s.raw, s.height);
-	//first_sort(&s);
+	s.a = ft_index(s.raw, s.height_a);
+	i = 0;
+	printf("A     B\n");
+	while(i < 1)
+	{	
+		reverse_rotate(&s, "a");
+		j = 0;
+		while(j < s.height_a)
+		{
+			printf("%i     %i\n",s.a[j],s.b[j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 	return (0);
 }
