@@ -105,20 +105,23 @@ int *ft_index(int *stack_a, int stack_size)
 	
 }*/
 
-/*void test_moves(t_stacks *s)
+void test_moves(t_stacks *s)
 {
-	swap(&s, "a");
-	swap(&s, "b");
-	swap(&s, "ab");
-	push(&s, "a");
-	push(&s, "b");
-	rotate(&s, "a");
-	rotate(&s, "b");
-	rotate(&s, "ab");
-	reverse_rotate(&s, "a");
-	reverse_rotate(&s, "b");
-	reverse_rotate(&s, "ab");	
-}*/
+
+	push(s, 'a');
+	push(s, 'b');
+	push(s, 'a');
+	push(s, 'a');
+	swap(s, "a");
+	swap(s, "b");
+	swap(s, "ab");
+	rotate(s, "a");
+	rotate(s, "b");
+	rotate(s, "ab");
+	reverse_rotate(s, "a");
+	reverse_rotate(s, "b");
+	reverse_rotate(s, "ab");	
+}
 
 int main(int argc, char **argv)
 {
@@ -133,11 +136,11 @@ int main(int argc, char **argv)
 	s.a = ft_index(s.raw, s.height_a);
 	i = 0;
 	printf("A     B\n");
-	while(i < 1)
+	while(i < 2)
 	{	
-		reverse_rotate(&s, "a");
+		test_moves(&s);
 		j = 0;
-		while(j < s.height_a)
+		while(j < 5)
 		{
 			printf("%i     %i\n",s.a[j],s.b[j]);
 			j++;
