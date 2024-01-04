@@ -107,7 +107,12 @@ static void	print_stacks(t_stacks *s) //for debugging
 
 static void	first_move(t_stacks *s)
 {
-	while(s->height_a > 4)
+	int *r;
+	int i;
+	
+	i = 0,
+	r = malloc(s->height_a*sizeof(int));
+	while(s->height_a > 3)
 	{
 		if(s->a[0] < s->height_a/2 + 1)
 		{
@@ -116,10 +121,15 @@ static void	first_move(t_stacks *s)
 		}
 		else
 		{
+			if(ft_memchr(r,s->a[0],s->height_a * sizeof(int)) != NULL)
+				break;
+			r[i] = s->a[0];
+			i++;
 			rotate(s, "a");
 			print_stacks(s);
 		}
 	}
+	free(r);
 }
 
 int	main(int argc, char **argv)
@@ -131,7 +141,8 @@ int	main(int argc, char **argv)
 	parse_args(argv);
 	mount_stacks(argv, &s);
 	s.a = ft_index(s.raw, s.height_a);
-	print_stacks(&s);
+	//print_stacks(&s);
 	first_move(&s);
+	three_left(&s);
 	return (0);
 }
