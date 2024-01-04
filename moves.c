@@ -10,7 +10,7 @@ void swap(t_stacks *s, char *m)
 		i++;	
 		if(s->height_b <= 1)
 			return;
-	}
+	}																										
 	while(m[i])
 	{
 		if(m[i] == 'a')
@@ -82,8 +82,7 @@ void rotate(t_stacks *s, char *m)
 		return; 
 	}
 	ft_printf("r\n");
-	s->moves++;
-	
+	s->moves++;	
 }
 
 void reverse_rotate(t_stacks *s, char *m)
@@ -137,7 +136,7 @@ void push(t_stacks *s, char m)
 {
 	int i;
 
-	if(m == 'a')
+	if(m == 'b')
 	{
 		if(s->height_a < 1)
 			return;
@@ -158,7 +157,7 @@ void push(t_stacks *s, char m)
 		}
 		s->a[i] = 0;
 	}
-	if(m == 'b')
+	if(m == 'a')
 	{
 		if(s->height_b < 1)
 			return;

@@ -50,7 +50,7 @@ static void parse_args(char **s)
 	}
 }
 
-static void mount_stacks(char **str, t_stacks *s)
+static void	mount_stacks(char **str, t_stacks *s)
 {
 	int	i;
 
@@ -64,7 +64,7 @@ static void mount_stacks(char **str, t_stacks *s)
 	}
 }
 
-int *ft_index(int *stack_a, int stack_size)
+static int	*ft_index(int *stack_a, int stack_size)
 {
 	int	i;
 	int	j;
@@ -90,63 +90,48 @@ int *ft_index(int *stack_a, int stack_size)
 	return (stack_index);
 }
 
-/*static void first_sort(t_stacks *s)
+static void	print_stacks(t_stacks *s) //for debugging
 {
 	int i;
-	
-	while(i < s->height - 3)
+
+	ft_printf("A   B\n");
+	ft_printf("_____\n");
+	i = 0;
+	while(i < ft_max(s->height_a,s->height_b))
 	{
-		if(s->a[i] < (s->height / 2) + 1)
-		{
-			pb(&s);
-		}
-		ra(&s);
+		ft_printf("%i   %i\n",s->a[i], s->b[i]);
+		i++;
 	}
-	
-}*/
-
-void test_moves(t_stacks *s)
-{
-
-	push(s, 'a');
-	push(s, 'b');
-	push(s, 'a');
-	push(s, 'a');
-	swap(s, "a");
-	swap(s, "b");
-	swap(s, "ab");
-	rotate(s, "a");
-	rotate(s, "b");
-	rotate(s, "ab");
-	reverse_rotate(s, "a");
-	reverse_rotate(s, "b");
-	reverse_rotate(s, "ab");	
+	ft_printf("\n");
 }
 
-int main(int argc, char **argv)
+static void	first_move(t_stacks *s)
+{
+	while(s->height_a > 4)
+	{
+		if(s->a[0] < s->height_a/2 + 1)
+		{
+			push(s,'b');
+			print_stacks(s);
+		}
+		else
+		{
+			rotate(s, "a");
+			print_stacks(s);
+		}
+	}
+}
+
+int	main(int argc, char **argv)
 {
 	t_stacks	s;
-	int i;
-	int j;
 
 	s.height_a = argc - 1;
-	s.height_b = 0; 
+	s.height_b = 0;
 	parse_args(argv);
 	mount_stacks(argv, &s);
 	s.a = ft_index(s.raw, s.height_a);
-	i = 0;
-	printf("A     B\n");
-	while(i < 2)
-	{	
-		test_moves(&s);
-		j = 0;
-		while(j < 5)
-		{
-			printf("%i     %i\n",s.a[j],s.b[j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
+	print_stacks(&s);
+	first_move(&s);
 	return (0);
 }
