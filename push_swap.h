@@ -15,13 +15,16 @@ typedef struct stacks
 	int height_b;
 	int *raw;
 	int moves;
+	int *pos_a;
+	int *pos_b;
 }	t_stacks;
 
-void push(t_stacks *s, char m);
-void swap(t_stacks *s, char *m);
-void rotate(t_stacks *s, char *m);
-void reverse_rotate(t_stacks *s, char *m);
-void ft_switch(int *a, int *b);
-
-
+void	push(t_stacks *s, char m);
+void	swap(t_stacks *s, char *m);
+void	rotate(t_stacks *s, char *m);
+void	reverse_rotate(t_stacks *s, char *m);
+void	ft_switch(int *a, int *b);
+void	sort_three(t_stacks *s);
+void    print_stacks(t_stacks *s);
+ 
 #endif

@@ -132,6 +132,7 @@ void reverse_rotate(t_stacks *s, char *m)
 	ft_printf("r\n");
 	s->moves++;	
 }
+
 void push(t_stacks *s, char m)
 {
 	int i;

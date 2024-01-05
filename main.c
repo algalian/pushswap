@@ -90,59 +90,57 @@ static int	*ft_index(int *stack_a, int stack_size)
 	return (stack_index);
 }
 
-static void	print_stacks(t_stacks *s) //for debugging
-{
-	int i;
 
-	ft_printf("A   B\n");
-	ft_printf("_____\n");
-	i = 0;
-	while(i < ft_max(s->height_a,s->height_b))
-	{
-		ft_printf("%i   %i\n",s->a[i], s->b[i]);
-		i++;
-	}
-	ft_printf("\n");
-}
-
-static void	first_move(t_stacks *s)
+static void first_move(t_stacks *s)
 {
-	int *r;
-	int i;
-	
-	i = 0,
-	r = malloc(s->height_a*sizeof(int));
+	int largest;
+
+	largest = s->height_a;
 	while(s->height_a > 3)
 	{
-		if(s->a[0] < s->height_a/2 + 1)
-		{
-			push(s,'b');
-			print_stacks(s);
-		}
+		if(s->a[0] < largest - 2)
+			push(s, 'b');
 		else
-		{
-			if(ft_memchr(r,s->a[0],s->height_a * sizeof(int)) != NULL)
-				break;
-			r[i] = s->a[0];
-			i++;
 			rotate(s, "a");
-			print_stacks(s);
-		}
 	}
-	free(r);
+}
+
+static void sort_b(t_stacks *s)
+{
+	int i;
+
+	i = 0;
+	while(s->b[i] + 1 != s->a[0])
+		i++;
+	if(i < s->height_b / 2)
+	{
+		while(s->b[0] + 1 != s->a[0])
+			rotate(s, "b");
+		push(s, 'a');
+		return;
+	}
+	while(s->b[0] + 1 != s->a[0])
+		reverse_rotate(s, "b");
+	push(s, 'a');
 }
 
 int	main(int argc, char **argv)
 {
 	t_stacks	s;
 
+	parse_args(argv);
 	s.height_a = argc - 1;
 	s.height_b = 0;
-	parse_args(argv);
 	mount_stacks(argv, &s);
 	s.a = ft_index(s.raw, s.height_a);
-	//print_stacks(&s);
 	first_move(&s);
-	three_left(&s);
-	return (0);
+	while(s.height_a > 3)
+		push(&s,'b');
+	sort_three(&s);
+	while(s.height_b >= 1)
+	{	
+		sort_b(&s);
+		print_stacks(&s);
+	}
+	return(0);
 }
