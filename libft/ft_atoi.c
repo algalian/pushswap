@@ -66,7 +66,7 @@ long	ft_atoi(const char *str)
 	i = clean_string(str, 0);
 	if (i == -1)
 	{
-		ft_printf("Error\n");
+		ft_printf("Error 0\n");
 		exit(2);
 	}
 	num = str[i] - '0';
@@ -79,7 +79,7 @@ long	ft_atoi(const char *str)
 	}
 	if(num < -2147483648 || num >= 4294967296)
 	{	
-		ft_printf("Error\n");
+		ft_printf("Error -1 \n");
 		exit(2);
 	}
 	return (num * sign(str, clean_string(str, 0)));

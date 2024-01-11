@@ -5,35 +5,36 @@ static void	num_ok(char *str)
 	int	i;
 
 	i = 0;
+	if(!str)
+	{
+		ft_printf("Error 3 \n");
+		exit(2);
+	}
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]) != 1)
+		if (ft_isdigit(str[i]) == 0)
 		{
-			ft_printf("Error\n");
+			ft_printf("Error 4\n");
 			exit(2);
 		}
 		i++;
 	}
 }
 
-static void parse_args(char **s)
+static void parse_args(char **s, t_stacks *stack)
 {
 	int	i;
 	int j;
 
-	if(!s)
-	{
-		ft_printf("Error\n");
-		exit(1);
-	}
-	i = 1;
+	i = 0;
 	while(s[i])
 	{
-		ft_atoi(s[i]);
 		num_ok(s[i]);
+		ft_atoi(s[i]);
 		i++;
 	}
-	i = 1;
+	stack->height_a = i;
+	i = 0;
 	while(s[i])
 	{
 		j = i + 1;
@@ -41,7 +42,7 @@ static void parse_args(char **s)
 		{
 			if(ft_strncmp(s[i], s[j], ft_max(ft_strlen(s[i]),ft_strlen(s[j]))) == 0)
 			{
-				ft_printf("Error");
+				ft_printf("Error 5");
 				exit(1);
 			}
 			j++;
@@ -59,7 +60,7 @@ static void	mount_stacks(char **str, t_stacks *s)
 	s->b = ft_calloc(s->height_a, sizeof(int));
 	while (i < s->height_a)
 	{
-		s->raw[i] = ft_atoi(str[i + 1]);
+		s->raw[i] = ft_atoi(str[i]);
 		i++;
 	}
 }
@@ -127,20 +128,48 @@ static void sort_b(t_stacks *s)
 int	main(int argc, char **argv)
 {
 	t_stacks	s;
+	char		**str;
+	int			i;
+	int			j;
 
-	parse_args(argv);
-	s.height_a = argc - 1;
+	if(!argv[1])
+	{
+		ft_printf("Error 1 \n");
+		return(1);
+	}
+	if(argc == 2)
+	{
+		str = ft_split(argv[1], ' ');
+		if(!str[0])
+		{
+			ft_printf("Error 2 \n");
+			return(2);
+		}
+		parse_args(str, &s);
+	}
+	else
+	{
+		i = 1;
+		while(argv[i])
+			i++;
+		str = (char **) malloc(sizeof(char*) * (i + 1));
+		j = 0;
+		while(j < i - 1)
+		{
+			str[j] = ft_strdup(argv[j + 1]);
+			j++;
+		}
+		str[j] = NULL;
+		parse_args(str, &s);
+	}
+	mount_stacks(str, &s);
 	s.height_b = 0;
-	mount_stacks(argv, &s);
 	s.a = ft_index(s.raw, s.height_a);
 	first_move(&s);
 	while(s.height_a > 3)
 		push(&s,'b');
 	sort_three(&s);
 	while(s.height_b >= 1)
-	{	
 		sort_b(&s);
-		print_stacks(&s);
-	}
 	return(0);
 }

@@ -34,7 +34,7 @@ static unsigned int	ft_words(char const *s, char c)
 	return (words);
 }
 
-void	**ft_freeall(char **array)
+static void	**ft_freeall(char **array)
 {
 	unsigned int	i;
 
