@@ -10,7 +10,7 @@ OBJS		= $(SRCS:%.c=%.o)
 
 LIBFT		= libft/libft.a
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -I libft
+CFLAGS		= -Wall -Werror -Wextra -g -I libft
 
 
 ${NAME}: ${OBJS}

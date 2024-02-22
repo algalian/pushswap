@@ -58,10 +58,44 @@ void    print_stacks(t_stacks *s) //for debugging
 	i = 0;
 	while(i < ft_max(s->height_a,s->height_b))
 	{
-		ft_printf("%i   %i\n",s->a[i], s->b[i]);
+		ft_printf("%i   %i\n",s->a[i][0], s->b[i][0]);
 		i++;
 	}
 	ft_printf("\n");
+}
+
+void print_grid(t_stacks *s)
+{
+	int i;
+	int j;
+
+	ft_printf("A\n");
+	i = 0;
+	while(i < s->height_a)
+	{
+		j = 0;
+		while(j < s->data)
+		{
+			ft_printf("%i ",s->a[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
+	ft_printf("B\n");
+	i = 0;
+	while(i < s->height_b)
+	{
+		j = 0;
+		while(j < s->data)
+		{
+			ft_printf("%i ",s->b[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
+
 }
 
 /*static void pos_in_stack(t_stacks *s) //deprecated

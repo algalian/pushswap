@@ -54,45 +54,59 @@ static void parse_args(char **s, t_stacks *stack)
 static void	mount_stacks(char **str, t_stacks *s)
 {
 	int	i;
+	int j;
 
 	i = 0;
 	s->raw = malloc(s->height_a * sizeof(int));
-	s->b = ft_calloc(s->height_a, sizeof(int));
+	s->b = malloc(s->height_a * sizeof(int*));
 	while (i < s->height_a)
 	{
 		s->raw[i] = ft_atoi(str[i]);
+		j = 1;
+		s->b[i] = ft_calloc(s->data,sizeof(int));
 		i++;
 	}
+
 }
 
-static int	*ft_index(int *stack_a, int stack_size)
+static int	**ft_index(int *stack_a, int stack_size, int data)
 {
 	int	i;
 	int	j;
 	int	index;
-	int	*stack_index;
+	int	**stack_index;
 
 	i = -1;
 	j = -1;
 	index = 1;
-	stack_index = malloc(sizeof(int) * (stack_size + 1));
+	stack_index = malloc(sizeof(int*) * (stack_size + 1));
 	if (!stack_index)
 		return (NULL);
-	stack_index[stack_size] = '\0';
 	while (++i < stack_size)
 	{
 		while (++j < stack_size)
 			if (stack_a[i] > stack_a[j])
 				index++;
-		stack_index[i] = index;
-		index = 1;
+		stack_index[i] = malloc(sizeof(int) * data);
+		stack_index[i][0] = index;
+		index = 1; 
 		j = -1;
+	}
+	i = 0;
+	while(i < stack_size)
+	{
+		j = 1;
+		while(j < data)
+		{
+			stack_index[i][j] = 0;
+			j++;
+		}
+		i++;
 	}
 	return (stack_index);
 }
 
-
-static void first_move(t_stacks *s)
+/*static void first_move(t_stacks *s)
 {
 	int largest;
 
@@ -104,26 +118,9 @@ static void first_move(t_stacks *s)
 		else
 			rotate(s, "a");
 	}
-}
+}*/
 
-static void sort_b(t_stacks *s)
-{
-	int i;
 
-	i = 0;
-	while(s->b[i] + 1 != s->a[0])
-		i++;
-	if(i < s->height_b / 2)
-	{
-		while(s->b[0] + 1 != s->a[0])
-			rotate(s, "b");
-		push(s, 'a');
-		return;
-	}
-	while(s->b[0] + 1 != s->a[0])
-		reverse_rotate(s, "b");
-	push(s, 'a');
-}
 
 int	main(int argc, char **argv)
 {
@@ -162,14 +159,9 @@ int	main(int argc, char **argv)
 		str[j] = NULL;
 		parse_args(str, &s);
 	}
+	s.data = 8; //tentativo
 	mount_stacks(str, &s);
 	s.height_b = 0;
-	s.a = ft_index(s.raw, s.height_a);
-	first_move(&s);
-	while(s.height_a > 3)
-		push(&s,'b');
-	sort_three(&s);
-	while(s.height_b >= 1)
-		sort_b(&s);
+	s.a = ft_index(s.raw, s.height_a, s.data);
 	return(0);
 }
