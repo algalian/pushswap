@@ -15,13 +15,13 @@ void swap(t_stacks *s, char *m)
 	{
 		if(m[i] == 'a')
 		{
-			ft_switch(s->a[0], s->a[1]);
+			ft_swap(s->a[0], s->a[1]);
 		}
 		if(m[i] == 'b')
 		{
 			if(s->height_b <= 1)
 				return;
-			ft_switch(s->b[0], s->b[1]);
+			ft_swap(s->b[0], s->b[1]);
 		}
 		i++;
 	}
@@ -140,7 +140,7 @@ void push(t_stacks *s, char m)
 	if(m == 'b')
 	{
 		if(s->height_a < 1)
-			return;
+			return;	
 		s->height_a--;
 		s->height_b++;
 		i = s->height_b;

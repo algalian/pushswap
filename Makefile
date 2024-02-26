@@ -4,6 +4,7 @@ NAME		= push_swap
 SRCS		= main.c \
 			utils.c \
 			moves.c \
+			parse.c \
 
 OBJS		= $(SRCS:%.c=%.o)
 
