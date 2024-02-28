@@ -71,7 +71,6 @@ void	mount_stacks(char **str, t_stacks *s)
 		}
 		i++;
 	}
-
 }
 
 int	**ft_index(int *stack_a, int stack_size, int flags)
@@ -109,4 +108,49 @@ int	**ft_index(int *stack_a, int stack_size, int flags)
 		i++;
 	}
 	return (stack_index);
+}
+
+static char **store_string(char **argv, t_stacks *s)
+{
+	int i;
+	int j;
+	char **str;
+
+	i = 1;
+	while(argv[i])
+		i++;
+	str = (char **) malloc(sizeof(char*) * (i + 1));
+	j = 0;
+	while(j < i - 1)
+	{
+		str[j] = ft_strdup(argv[j + 1]);
+		j++;
+	}
+	str[j] = NULL;
+	parse_args(str, s);
+	return(str);
+}
+
+char **check_args(int argc, char **argv, t_stacks *s)
+{
+	char	**str;
+
+	if(!argv[1])
+	{
+		ft_printf("Error 1 \n");
+		exit(1);
+	}
+	if(argc == 2)
+	{
+		str = ft_split(argv[1], ' ');
+		if(!str[0])
+		{
+			ft_printf("Error 2 \n");
+			exit(2);
+		}
+		parse_args(str, s);
+	}
+	else
+		str = store_string(argv, s);
+	return(str);
 }

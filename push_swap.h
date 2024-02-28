@@ -29,5 +29,6 @@ void	reset_flag(int flag, int **stack, int height);
 int		**ft_index(int *stack_a, int stack_size, int flags);
 void	mount_stacks(char **str, t_stacks *s);
 void	parse_args(char **s, t_stacks *stack);
+char **check_args(int argc, char **argv, t_stacks *s);
 
 #endif

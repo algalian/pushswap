@@ -17,8 +17,9 @@ char	*ft_strdup(const char *s1)
 
 	s2 = malloc((ft_strlen(s1) * sizeof(const char)) + 1);
 	if (!s2)
-	{
-		return (NULL);
+	{	
+		ft_printf("Error 2");
+		exit(2);
 	}
 	ft_strlcpy(s2, s1, ft_strlen(s1) + 1);
 	s2[ft_strlen(s1)] = '\0';

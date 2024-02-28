@@ -25,7 +25,7 @@ static void leave_three(t_stacks *s, int largest)
 	int i;
 
 	i = 0;
-	while(s->height_a > 3 && i < 30)
+	while(s->height_a > 3)
 	{
 		if(s->a[0][0] <= largest - 3)
 			push(s, 'b');
@@ -35,43 +35,67 @@ static void leave_three(t_stacks *s, int largest)
 	}
 }
 
+static int upwards_cost(t_stacks *s, int i, int *n)
+{
+	if(i <= s->height_a / 2)
+	{
+		n[4] = 1;
+		return(i);			
+	}
+	n[4] = -1;
+	return(s->height_a - i);
+}
+
+static int downwards_cost(t_stacks *s, int *n)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while(n[0] > s->a[i][0])
+		i++;
+	if(i <= s->height_a / 2)
+	{
+		n[3] = 1;
+		return(i);
+	}
+	n[3] = -1;
+	return(s->height_a  - i);
+}
+
+static int find_min(t_stacks *s)
+{
+	int i;
+	int min;
+	int index;
+
+	i = 0;
+	min = s->b[i][1] + s->b[i][2];
+	while(i < s->height_b)
+	{
+		if(s->b[i][1] + s->b[i][2] < min)
+		{
+			min = s->b[i][1] + s->b[i][2];
+			index = i;
+		}
+		i++;
+	}
+	return(index);
+}
+
+static void exec_move(t_stacks *s, int min)
+{
+
+}
+
 int	main(int argc, char **argv)
 {
 	t_stacks	s;
 	char		**str;
 	int			i;
-	int			j;
+	int 		min;
 
-	if(!argv[1])
-	{
-		ft_printf("Error 1 \n");
-		return(1);
-	}
-	if(argc == 2)
-	{
-		str = ft_split(argv[1], ' ');
-		if(!str[0])
-		{
-			ft_printf("Error 2 \n");
-			return(2);
-		}
-		parse_args(str, &s);
-	}
-	else
-	{
-		i = 1;
-		while(argv[i])
-			i++;
-		str = (char **) malloc(sizeof(char*) * (i + 1));
-		j = 0;
-		while(j < i - 1)
-		{
-			str[j] = ft_strdup(argv[j + 1]);
-			j++;
-		}
-		str[j] = NULL;
-		parse_args(str, &s);
-	}
+	str = check_args(argc, argv, &s);
 	s.flags = 8;
 	mount_stacks(str, &s);
 	s.height_b = 0;
@@ -79,6 +103,13 @@ int	main(int argc, char **argv)
 	i = first_step(&s);
 	leave_three(&s,i);
 	sort_three(&s);
-	print_stacks(&s);
+	i = 0;
+	//while(s.height_b > 0)
+	//{
+		s.b[i][1] = downwards_cost(&s, s.b[i]);
+		s.b[i][2] = upwards_cost(&s, i, s.b[i]);
+		min = find_min(&s); 
+		exec_move(&s, min);
+	//}
 	return(0);
 }
