@@ -73,7 +73,6 @@ void    print_stacks(t_stacks *s)
 		ft_printf("%i\n",s->b[i][0]);
 		i++;
 	}
-	ft_printf("moves: %i\n", s->moves);
 }
 
 void print_grid(t_stacks *s)
@@ -107,5 +106,4 @@ void print_grid(t_stacks *s)
 		ft_printf("\n");
 		i++;
 	}
-	ft_printf("moves: %i\n", s->moves);
 }
