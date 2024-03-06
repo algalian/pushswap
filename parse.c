@@ -58,12 +58,27 @@ void	mount_stacks(char **str, t_stacks *s)
 
 	i = 0;
 	s->raw = malloc(s->height_a * sizeof(int));
+	if(!s->raw)
+	{
+		ft_printf("malloc error\n");
+		exit(1);
+	}
 	s->b = malloc(s->height_a * sizeof(int*));
+	if(!s->b)
+	{
+		ft_printf("malloc error\n");
+		exit(1);
+	}
 	while (i < s->height_a)
 	{
 		s->raw[i] = ft_atoi(str[i]);
 		j = 1;
 		s->b[i] = malloc(s->flags*sizeof(int));
+		if(!s->b[i])
+		{
+			ft_printf("malloc error\n");
+			exit(1);
+		}
 		while(j < s->flags)
 		{
 			s->b[i][j]= 0;
@@ -85,13 +100,21 @@ int	**ft_index(int *stack_a, int stack_size, int flags)
 	index = 1;
 	stack_index = malloc(sizeof(int*) * (stack_size + 1));
 	if (!stack_index)
-		return (NULL);
+	{
+		ft_printf("malloc error\n");
+		exit(1);
+	}
 	while (++i < stack_size)
 	{
 		while (++j < stack_size)
 			if (stack_a[i] > stack_a[j])
 				index++;
 		stack_index[i] = malloc(sizeof(int) * flags);
+		if(!stack_index[i])
+		{
+			ft_printf("malloc error\n");
+			exit(1);
+		}
 		stack_index[i][0] = index;
 		index = 1; 
 		j = -1;
@@ -120,6 +143,11 @@ static char **store_string(char **argv, t_stacks *s)
 	while(argv[i])
 		i++;
 	str = (char **) malloc(sizeof(char*) * (i + 1));
+	if(!str)
+	{
+		ft_printf("malloc error\n");
+		exit(1);
+	}
 	j = 0;
 	while(j < i - 1)
 	{

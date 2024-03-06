@@ -35,7 +35,7 @@ static void leave_three(t_stacks *s, int largest)
 	}
 }
 
-/*static int upwards_cost(t_stacks *s, int i, int *n)
+static int upwards_cost(t_stacks *s, int i, int *n)
 {
 	if(i <= s->height_b / 2)
 	{
@@ -48,18 +48,13 @@ static void leave_three(t_stacks *s, int largest)
 
 static int downwards_cost(t_stacks *s, int *n)
 {
-	int i;
-
-	i = 0;
-	while(n[0] > s->a[i][0])
-		i++;
-	if(i <= s->height_a / 2)
+	if(n[5] <= s->height_a / 2)
 	{
 		n[3] = 1;
-		return(i);
+		return(n[5]);			
 	}
 	n[3] = -1;
-	return(s->height_a  - i);
+	return(s->height_a - n[5]);
 }
 
 static int find_min(t_stacks *s)
@@ -83,10 +78,71 @@ static int find_min(t_stacks *s)
 	return(index);
 }
 
+static void turn_back(t_stacks *s, int n, int w)
+{
+	int i;
+
+	if(w == 1)
+	{
+		i = 0;
+		while(i < n)
+		{
+			reverse_rotate(s, "a");
+			i++;
+		}
+	}
+	if(w == -1)
+	{
+		i = 0;
+		while(i < n)
+		{
+			rotate(s, "a");
+			i++;
+		}
+	}
+}
+
 static void exec_move(t_stacks *s, int index)
 {
+	int *temp;
+	int i;
 
-}*/
+	temp = s->b[index];
+	if(temp[4] == 1)
+	{
+		while(s->b[0][0] != temp[0])
+		{
+			rotate(s, "b");
+		}
+	}
+	if(temp[4] == -1)
+	{
+		while(s->b[s->height_b - 1][0] != temp[0])
+		{
+			reverse_rotate(s, "b");
+		}
+	}
+	if(temp[3] == 1)
+	{
+		i = 0;
+		while(i < temp[5])
+		{
+			rotate(s, "a");
+			i++;
+		}
+	}
+	if(temp[3] == -1)
+	{	
+		i = 0;
+		while(i < s->height_b - temp[5])
+		{
+			reverse_rotate(s, "a");
+			i++;
+		}
+	}
+	push(s, 'a');
+	turn_back(s, i, temp[3]);
+}
 
 static int ft_highest(t_stacks *s, int **a)
 {
@@ -129,8 +185,8 @@ int	main(int argc, char **argv)
 	t_stacks	s;
 	char		**str;
 	int			i;
+	int 		min;
 	int			j;
-	//int 		min;
 
 	str = check_args(argc, argv, &s);
 	s.flags = 8;
@@ -141,26 +197,20 @@ int	main(int argc, char **argv)
 	leave_three(&s,i);
 	sort_three(&s);
 	j = 0;
-	i = 0;
-	while(i < s.height_b)
+	while(s.height_b > 0)
 	{
-		target_pos(&s, s.b[i]);
-		i++;
-	}
-	print_grid(&s);
-	/*while(s.height_b > 0)
-	{	
+		i = 0;
 		while(i < s.height_b)
 		{
 			target_pos(&s, s.b[i]);
 			s.b[i][1] = downwards_cost(&s, s.b[i]);
 			s.b[i][2] = upwards_cost(&s, i, s.b[i]);
-			min = find_min(&s); 
 			i++;
 		}
+		min = find_min(&s);
 		exec_move(&s, min);
 		j++;
-	}*/
-	//ft_printf("moves: %i\n", s.moves);
+	}
+	ft_printf("moves: %i\n", s.moves);
 	return(0);
 }
