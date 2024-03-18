@@ -5,6 +5,7 @@ SRCS		= main.c \
 			utils.c \
 			moves.c \
 			parse.c \
+			assess.c \
 
 OBJS		= $(SRCS:%.c=%.o)
 

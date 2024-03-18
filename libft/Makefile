@@ -67,7 +67,9 @@ SRC = ft_isalpha.c \
 	  ft_lstclear_bonus.c \
 	  ft_lstiter_bonus.c \
 	  ft_lstmap_bonus.c \
-	  ft_swap.c
+	  ft_swap.c \
+	  ft_min.c \
+	  ft_abs.c \
 
 OBJ = $(SRC:.c=.o)
 

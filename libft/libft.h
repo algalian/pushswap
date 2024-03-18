@@ -84,5 +84,6 @@ double	ft_pow(double base, double exp);
 int		ft_max(int a, int b);
 t_ratio	ft_ratio(double n);
 void	ft_swap(int *a, int *b);
-
+int		ft_min(int a, int b);
+unsigned int	ft_abs(int n);
 #endif
