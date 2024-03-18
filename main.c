@@ -37,11 +37,18 @@ static void leave_three(t_stacks *s, int largest)
 static void align(t_stacks *s)
 {
 	int i;
+	int *temp;
 
 	i = 0;
-	while(s->a[i] != 1)
+	while(s->a[i][0] != 1)
 		i++;
-	
+	temp = s->a[i];
+	if(i <= s->height_a / 2)
+		while(s->a[0][0] != temp[0])
+			rotate(s,"a");
+	else
+		while(s->a[0][0] != temp[0])
+			reverse_rotate(s,"a");
 }
 
 static void exec_move(t_stacks *s, int index)
@@ -147,8 +154,6 @@ int	main(int argc, char **argv)
 			i++;
 		}
 		min = find_min(&s);
-		print_grid(&s);
-		printf("min: %i\n", s.b[min][0]);
 		exec_move(&s, min);
 		j = 1;
 		while(j < s.flags)
@@ -159,6 +164,6 @@ int	main(int argc, char **argv)
 		k++;
 	}
 	align(&s);
-	ft_printf("moves: %i\n", s.moves);
+	printf("moves: %i\n", s.moves);
 	return(0);
 }
