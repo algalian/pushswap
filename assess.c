@@ -66,6 +66,11 @@ void total_cost(t_stacks *s, int *b, int n)
 	int index;
 
 	m = malloc(sizeof(int) * 4);
+	if(!m)
+	{
+		ft_printf("malloc error\n");
+		exit(1);
+	}
 	m[0] = ft_min(n, b[1]) + ft_abs(n - b[1]);
 	m[1] = n + (s->height_a - b[1]) + 1;
 	m[2] = (s->height_b - n) + b[1];

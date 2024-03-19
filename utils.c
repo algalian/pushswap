@@ -53,6 +53,32 @@ void reset_flag(int flag, int **stack, int height)
 	}
 }
 
+void free_string(char **s)
+{
+	int i;
+	
+	i = 0;
+	while(s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+}
+
+void free_array(int h, int **a)
+{
+	int i;
+
+	i = 0;
+	while(i < h)
+	{
+		free(a[i]);
+		i++;
+	}
+	free(a);
+}
+
 // *****debuggers*****
 //----------------------------------------------------------------------------------------------------
 void    print_stacks(t_stacks *s) 
