@@ -149,6 +149,7 @@ void push(t_stacks *s, char m)
 			s->b[i] = s->b[i - 1];
 			i--;
 		}
+		//free(s->b[0]);
 		s->b[0] = s->a[0];
 		i = 0;
 		while(i < s->height_a)
@@ -161,7 +162,9 @@ void push(t_stacks *s, char m)
 	if(m == 'a')
 	{
 		if(s->height_b < 1)
+		{
 			return;
+		}
 		s->height_a++;
 		s->height_b--;
 		i = s->height_a;
@@ -177,7 +180,6 @@ void push(t_stacks *s, char m)
 			s->b[i] = s->b[i + 1];
 			i++; 
 		}
-		s->b[i] = 0;
 	}
 	ft_printf("p%c\n", m);
 	s->moves++;

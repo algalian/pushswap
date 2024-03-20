@@ -51,7 +51,7 @@ void parse_args(char **s, t_stacks *stack)
 	}
 }
 
-void	mount_stacks(char **str, t_stacks *s)
+void	init_stacks(char **str, t_stacks *s)
 {
 	int	i;
 	int j;
@@ -72,20 +72,9 @@ void	mount_stacks(char **str, t_stacks *s)
 	while (i < s->height_a)
 	{
 		s->raw[i] = ft_atoi(str[i]);
-		j = 1;
-		s->b[i] = malloc(s->flags*sizeof(int));
-		if(!s->b[i])
-		{
-			ft_printf("malloc error\n");
-			exit(1);
-		}
-		while(j < s->flags)
-		{
-			s->b[i][j]= 0;
-			j++;
-		}
 		i++;
 	}
+	free_string(str);
 }
 
 int	**ft_index(int *stack_a, int stack_size, int flags)
@@ -130,6 +119,7 @@ int	**ft_index(int *stack_a, int stack_size, int flags)
 		}
 		i++;
 	}
+	free(stack_a);
 	return (stack_index);
 }
 

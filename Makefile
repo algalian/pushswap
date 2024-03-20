@@ -6,13 +6,14 @@ SRCS		= main.c \
 			moves.c \
 			parse.c \
 			assess.c \
+			init.c \
 
 OBJS		= $(SRCS:%.c=%.o)
 
 
 LIBFT		= libft/libft.a
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -g -I libft
+CFLAGS		= -g -I libft #-Wall -Werror -Wextra -g -I libft
 
 
 ${NAME}: ${OBJS}

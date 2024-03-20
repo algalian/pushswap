@@ -32,6 +32,7 @@ static void leave_three(t_stacks *s, int largest)
 			rotate(s, "a");
 		i++;
 	}
+
 }
 
 static void align(t_stacks *s)
@@ -51,79 +52,7 @@ static void align(t_stacks *s)
 			reverse_rotate(s,"a");
 }
 
-static void exec_move(t_stacks *s, int index)
-{
-	int *temp;
-	int i;
 
-	temp = s->b[index];
-	i = 0;
-	if(temp[3] == 1)
-	{			
-		while(s->b[0][0] != temp[0] && i < temp[1])
-		{
-			rotate(s, "ab");
-			i++;
-		}
-		while(s->b[0][0] != temp[0])
-		{
-			rotate(s,"b");
-		}
-		while(i < temp[1])
-		{
-			rotate(s, "a");
-			i++;
-		}
-		push(s,'a');
-	}
-	if(temp[3] == 2)
-	{
-		while(s->b[0][0] != temp[0])
-		{
-			rotate(s,"b");
-		}
-		while(i < s->height_a - temp[1])
-		{
-			reverse_rotate(s, "a");
-			i++;
-		}
-		i++;
-		push(s,'a');
-
-	}
-	if(temp[3] == 3)
-	{
-		while(s->b[0][0] != temp[0])
-		{
-			reverse_rotate(s, "b");
-		}
-		while(i < temp[1])
-		{
-			rotate(s, "a");
-			i++;
-		}
-		push(s, 'a');
-	}
-	if(temp[3] == 4)
-	{
-		while(s->b[0][0] != temp[0] && i < s->height_a - temp[1])
-		{
-			reverse_rotate(s, "ab");
-			i++;
-		}
-		while(s->b[0][0] != temp[0])
-		{
-			reverse_rotate(s, "b");
-		}
-		while(i < s->height_a - temp[1])
-		{
-			reverse_rotate(s,"a");
-			i++;
-		}
-		push(s, 'a');
-
-	}
-}
 
 int	main(int argc, char **argv)
 {
@@ -131,19 +60,35 @@ int	main(int argc, char **argv)
 	char		**str;
 	int			i;
 	int			min;
-	int			j;
-	int			k;
+
 
 	str = check_args(argc, argv, &s);
 	s.flags = 4;
-	mount_stacks(str, &s);
+	init_stacks(str, &s);
 	s.height_b = 0;
 	s.a = ft_index(s.raw, s.height_a, s.flags);
+	if(s.height_a < 3)
+	{
+		if(s.height_a < 2)
+		{		
+			free_array(s.height_a, s.a);
+			free(s.b);
+			return(0);
+		}
+		if(s.a[0][0] > s.a[1][0])
+		{
+			swap(&s, "a");
+			free_array(s.height_a, s.a);
+			free(s.b);
+			return(0);
+		}
+		free_array(s.height_a, s.a);
+		free(s.b);
+		return(0);
+	}
 	i = first_step(&s);
 	leave_three(&s,i);
 	sort_three(&s);
-	j = 0;
-	k = 0;
 	while(s.height_b > 0)
 	{
 		i = 0;
@@ -155,15 +100,9 @@ int	main(int argc, char **argv)
 		}
 		min = find_min(&s);
 		exec_move(&s, min);
-		j = 1;
-		while(j < s.flags)
-		{
-			reset_flag(j, s.b, s.height_b);
-			j++;
-		}
-		k++;
 	}
 	align(&s);
-	printf("moves: %i\n", s.moves);
+	free_array(s.height_a, s.a);
+	free(s.b);
 	return(0);
 }

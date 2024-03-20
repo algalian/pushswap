@@ -69,6 +69,8 @@ void total_cost(t_stacks *s, int *b, int n)
 	if(!m)
 	{
 		ft_printf("malloc error\n");
+		free_array(s->height_a, s->a);
+		free_array(s->height_b, s->b);
 		exit(1);
 	}
 	m[0] = ft_min(n, b[1]) + ft_abs(n - b[1]);
