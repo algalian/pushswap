@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-
-
 static unsigned int	ft_count(unsigned int m)
 {
 	int	i;

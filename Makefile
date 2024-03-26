@@ -3,17 +3,22 @@ NAME		= push_swap
 
 SRCS		= main.c \
 			utils.c \
-			moves.c \
 			parse.c \
 			assess.c \
 			init.c \
+			sort.c \
+			sort_three.c\
+			push.c\
+			rotate.c\
+			reverse_rotate.c\
+			swap.c\
 
 OBJS		= $(SRCS:%.c=%.o)
 
 
 LIBFT		= libft/libft.a
 CC			= gcc
-CFLAGS		= -g -I libft #-Wall -Werror -Wextra -g -I libft
+CFLAGS		= -g -I libft -Wall -Werror -Wextra -g -I libft
 
 
 ${NAME}: ${OBJS}

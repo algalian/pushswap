@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
-void ft_swap(int *a, int *b)
+void	ft_swap(int *a, int *b)
 {
-    int temp;
+	int	temp;
 
-    temp = *a;
-    *a = *b;
-    *b = temp;
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }

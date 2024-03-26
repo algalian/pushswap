@@ -59,7 +59,7 @@ static int	sign(const char *str, unsigned int i)
 
 long	ft_atoi(const char *str)
 {
-	int	i;
+	int		i;
 	long	num;
 	long	next;
 
@@ -77,8 +77,8 @@ long	ft_atoi(const char *str)
 		num = num * 10 + next;
 		i++;
 	}
-	if(num < -2147483648 || num >= 4294967296)
-	{	
+	if (num < -2147483648 || num >= 4294967296)
+	{
 		ft_printf("Error -1 \n");
 		exit(2);
 	}
