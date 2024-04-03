@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	num_ok(char *str)
+static void	num_ok(char *str, char **s)
 {
 	int	i;
 
@@ -27,6 +27,7 @@ static void	num_ok(char *str)
 		if (ft_isdigit(str[i]) == 0)
 		{
 			ft_printf("Error\n");
+			free_string(s);
 			exit(0);
 		}
 		i++;
@@ -40,7 +41,7 @@ static int	parse_nums(char **s)
 	i = 0;
 	while (s[i])
 	{
-		num_ok(s[i]);
+		num_ok(s[i], s);
 		ft_atoi(s[i]);
 		i++;
 	}
@@ -62,7 +63,8 @@ static void	parse_args(char **s, t_stacks *stack)
 			if (ft_strncmp(s[i], s[j],
 					ft_max(ft_strlen(s[i]), ft_strlen(s[j]))) == 0)
 			{
-				ft_printf("Error");
+				ft_printf("Error\n");
+				free_string(s);
 				exit(0);
 			}
 			j++;
@@ -102,10 +104,16 @@ char	**check_args(int argc, char **argv, t_stacks *s)
 	if (argc == 2)
 	{
 		str = ft_split(argv[1], ' ');
-		if (!str[0])
+		if (!str)
 		{
 			ft_printf("Error\n");
-			exit(0);
+			exit(1);
+		}
+		if (!str[0])
+		{
+			free_string(str);
+			ft_printf("Error\n");
+			exit(1);
 		}
 		parse_args(str, s);
 	}
