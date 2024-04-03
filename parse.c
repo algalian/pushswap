@@ -19,15 +19,15 @@ static void	num_ok(char *str)
 	i = 0;
 	if (!str)
 	{
-		ft_printf("Error 3 \n");
-		exit(2);
+		ft_printf("Error\n");
+		exit(0);
 	}
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]) == 0)
 		{
-			ft_printf("Error 4\n");
-			exit(2);
+			ft_printf("Error\n");
+			exit(0);
 		}
 		i++;
 	}
@@ -62,8 +62,8 @@ static void	parse_args(char **s, t_stacks *stack)
 			if (ft_strncmp(s[i], s[j],
 					ft_max(ft_strlen(s[i]), ft_strlen(s[j]))) == 0)
 			{
-				ft_printf("Error 5");
-				exit(1);
+				ft_printf("Error");
+				exit(0);
 			}
 			j++;
 		}
@@ -98,17 +98,14 @@ char	**check_args(int argc, char **argv, t_stacks *s)
 	char	**str;
 
 	if (!argv[1])
-	{
-		ft_printf("Error 1 \n");
-		exit(1);
-	}
+		exit(0);
 	if (argc == 2)
 	{
 		str = ft_split(argv[1], ' ');
 		if (!str[0])
 		{
-			ft_printf("Error 2 \n");
-			exit(2);
+			ft_printf("Error\n");
+			exit(0);
 		}
 		parse_args(str, s);
 	}

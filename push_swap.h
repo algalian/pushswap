@@ -48,5 +48,7 @@ void	init_stacks(char **str, t_stacks *s);
 void	exec_move(t_stacks *s, int index);
 void	malloc_error(void *s);
 void	less_than_three(t_stacks *s);
+void	identity_test(t_stacks *s);
+void	align(t_stacks *s);
 
 #endif

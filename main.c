@@ -46,7 +46,7 @@ static void	leave_three(t_stacks *s, int largest)
 	}
 }
 
-static void	align(t_stacks *s)
+void	align(t_stacks *s)
 {
 	int	i;
 	int	*temp;
@@ -89,11 +89,10 @@ int	main(int argc, char **argv)
 	int			i;
 
 	str = check_args(argc, argv, &s);
-	s.flags = 4;
 	init_stacks(str, &s);
-	s.height_b = 0;
 	s.a = ft_index(s.raw, s.height_a, s.flags);
 	less_than_three(&s);
+	identity_test(&s);
 	i = first_step(&s);
 	leave_three(&s, i);
 	sort_three(&s, s.height_a + s.height_b);

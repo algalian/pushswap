@@ -6,12 +6,13 @@ SRCS		= main.c \
 			parse.c \
 			assess.c \
 			init.c \
-			sort.c \
+			proper_sort.c \
 			sort_three.c\
 			push.c\
 			rotate.c\
 			reverse_rotate.c\
 			swap.c\
+			identity_tests.c\
 
 OBJS		= $(SRCS:%.c=%.o)
 

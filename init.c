@@ -35,6 +35,8 @@ void	init_stacks(char **str, t_stacks *s)
 		s->raw[i] = ft_atoi(str[i]);
 		i++;
 	}
+	s->height_b = 0;
+	s->flags = 4;
 	free_string(str);
 }
 
