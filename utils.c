@@ -12,6 +12,15 @@
 
 #include "push_swap.h"
 
+void	malloc_error(void *s)
+{
+	if (!s)
+	{
+		ft_printf("malloc error\n");
+		exit(1);
+	}
+}
+
 void	reset_flag(int flag, int **stack, int height)
 {
 	int	i;
@@ -22,19 +31,6 @@ void	reset_flag(int flag, int **stack, int height)
 		stack[i][flag] = 0;
 		i++;
 	}
-}
-
-void	free_string(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
 }
 
 void	free_array(int h, int **a)

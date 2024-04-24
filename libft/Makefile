@@ -70,6 +70,7 @@ SRC = ft_isalpha.c \
 	  ft_swap.c \
 	  ft_min.c \
 	  ft_abs.c \
+	  ft_free_string.c\
 
 OBJ = $(SRC:.c=.o)
 

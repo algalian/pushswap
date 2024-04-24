@@ -19,7 +19,7 @@ static void	perfectly_sorted(t_stacks *s)
 	exit(0);
 }
 
-static int	easy_short(t_stacks *s)
+static int	easy_sort(t_stacks *s)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ void	identity_test(t_stacks *s)
 	int	j;
 	int	n;
 
-	i = easy_short(s);
+	i = easy_sort(s);
 	if (i == -1)
 		return ;
 	if (s->a[0][0] == 1)

@@ -27,7 +27,7 @@ typedef struct s_ratio
 	int	num;
 	int	den;
 }	t_ratio;
-long	ft_atoi(const char *str);
+long	ft_atoi(const char *str, char **s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 int		ft_isalnum(int c);
@@ -86,4 +86,5 @@ t_ratio	ft_ratio(double n);
 void	ft_swap(int *a, int *b);
 int		ft_min(int a, int b);
 int		ft_abs(int n);
+void	free_string(char **s);
 #endif

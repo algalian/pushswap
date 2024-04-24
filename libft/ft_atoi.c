@@ -57,7 +57,7 @@ static int	sign(const char *str, unsigned int i)
 	return (1);
 }
 
-long	ft_atoi(const char *str)
+long	ft_atoi(const char *str, char **s)
 {
 	int		i;
 	long	num;
@@ -67,6 +67,7 @@ long	ft_atoi(const char *str)
 	if (i == -1)
 	{
 		ft_printf("Error\n");
+		free_string(s);
 		exit(2);
 	}
 	num = str[i] - '0';

@@ -12,15 +12,6 @@
 
 #include "push_swap.h"
 
-void	malloc_error(void *s)
-{
-	if (!s)
-	{
-		ft_printf("malloc error\n");
-		exit(1);
-	}
-}
-
 void	init_stacks(char **str, t_stacks *s)
 {
 	int	i;
@@ -32,7 +23,7 @@ void	init_stacks(char **str, t_stacks *s)
 	malloc_error(s->b);
 	while (i < s->height_a)
 	{
-		s->raw[i] = ft_atoi(str[i]);
+		s->raw[i] = ft_atoi(str[i], str);
 		i++;
 	}
 	s->height_b = 0;
@@ -65,22 +56,4 @@ int	**ft_index(int *stack_a, int stack_size, int flags)
 	}
 	free(stack_a);
 	return (stack_index);
-}
-
-void	init_flags(t_stacks *s)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < s->height_a)
-	{
-		j = 1;
-		while (j < s->flags)
-		{
-			s->a[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
 }
